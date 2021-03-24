@@ -1,11 +1,11 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
-
 $cell-size: 100px;
-$mark-size: calc($cell-size * .9);
-
+$mark-size: calc($cell-size * 0.9);
 
 body {
   margin: 0;
@@ -19,7 +19,7 @@ body {
   align-content: center;
   justify-items: center;
   align-items: center;
-  grid-template-columns: repeat(3, auto)
+  grid-template-columns: repeat(3, auto);
 }
 
 .cell {
@@ -33,25 +33,25 @@ body {
   cursor: pointer;
 }
 
-// .cell:first-child,
-// .cell:nth-child(2),
-// .cell:nth-child(3) {
-//   border-top: none;
-// }
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
 
-// .cell:nth-child(3n + 1) {
-//   border-left: none;
-// }
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
 
-// .cell:nth-child(3n + 3) {
-//   border-right: none;
-// }
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
 
-// .cell:last-child,
-// .cell:nth-child(8),
-// .cell:nth-child(7) {
-//   border-bottom: none;
-// }
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
 
 // .cell.x,
 // .cell.circle {
@@ -144,19 +144,3 @@ body {
 // .winning-message.show {
 //   display: flex;
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
