@@ -1,7 +1,6 @@
 # Tic Tac Toe Game
 
 ## Table of contents
-1. [Project Aim](#project-aim)
 1. [General Info](#general-info)
 1. [Technologies](#technologies)
 1. [Development](#development)
