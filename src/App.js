@@ -1,19 +1,10 @@
-// import logo from './logo.svg';
 import { useEffect, useState } from "react";
 import './App.css';
 
 function App() {
+  console.log("start")
   const [resultX, setResultX] = useState(0);
   const [resultO, setResultO] = useState(0);
-
-
-  // useEffect(() =>{
-  //   const reset = () => {
-  //     console.log("kkkk")
-  //     setResultO(0);
-  //     setResultX(0)
-  //   }
-  // },[])
 
   useEffect(() => {
     const WINNING_COMBINATIONS = [
@@ -69,7 +60,7 @@ function App() {
         winningMessageTextElement.innerText = 'Draw!'
       } else {
         winningMessageTextElement.innerText = `${circleTurn ? "The O's" : "The X's"} Wins!`
-        circleTurn ? setResultO(resultO + 1) : setResultX(resultX + 1);
+        circleTurn ? setResultO(x => x + 1) : setResultX(x => x + 1);
       }
       winningMessageElement.classList.add('show')
     }
@@ -106,7 +97,7 @@ function App() {
       })
     }
 
-  }, []);
+  },[]);
 
 
   return (
@@ -126,7 +117,7 @@ function App() {
       <div className="results" id="results">
         <div className="O-result"> O's result is: {resultO}</div>
         <div className="x-result">X's result is: {resultX}</div>
-        <button id="reset" >Reset</button>
+        <button id="reset" onClick={ ()=>{setResultO(x => x = 0);setResultX(x => x = 0)}}>Reset</button>
       </div>
 
       <div className="winning-message" id="winningMessage">
