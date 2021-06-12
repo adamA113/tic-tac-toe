@@ -4,12 +4,8 @@
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-}
-
 .board {
-  margin-top: 100px;
+  margin: 50px 0;
   width: 100%;
   height: 100%;
   display: grid;
@@ -23,7 +19,7 @@ body {
 .cell {
   width: 100px;
   height: 100px;
-  border: 1px solid black;
+  border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -119,10 +115,30 @@ body {
 }
 
 #results {
-  display: inline-flex;
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
   margin: 30px;
+}
+#results #reset {
+  margin: 0 40px;
+  padding: 5px;
+  width: 80px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #e94d4d;
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+#results #reset:hover {
+  background-color: #f18686;
+}
+#results .o-result span,
+#results .x-result span {
+  color: red;
+  font-weight: 700;
 }
 
 .winning-message {
@@ -139,16 +155,15 @@ body {
   font-size: 5rem;
   flex-direction: column;
 }
-
-.winning-message button {
+.winning-message #restart-btn {
   font-size: 3rem;
   background-color: white;
   border: 1px solid black;
+  border-radius: 10px;
   padding: 0.25em 0.5em;
   cursor: pointer;
 }
-
-.winning-message button:hover {
+.winning-message #restart-btn:hover {
   background-color: black;
   color: white;
   border-color: white;
