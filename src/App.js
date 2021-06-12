@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import './App.css';
 
 function App() {
-  console.log("start")
+  console.log("start");
   const [resultX, setResultX] = useState(0);
   const [resultO, setResultO] = useState(0);
 
@@ -17,43 +17,74 @@ function App() {
       [0, 4, 8],
       [2, 4, 6]
     ]
-    const X_CLASS = 'x'
-    const CIRCLE_CLASS = 'circle'
-    const cellElements = document.querySelectorAll('[data-cell]')
-    const board = document.getElementById('board')
-    const winningMessageElement = document.getElementById('winningMessage')
-    const restartButton = document.getElementById('restartButton')
-    const winningMessageTextElement = document.querySelector('[data-winning-message-text]')
-    let circleTurn
+    const X = 'x';
+    const CIRCLE = 'circle';
+    const cellElements = document.querySelectorAll('[data-cell]');
+    const board = document.getElementById('board');
+    const winningMessageElement = document.getElementById('winningMessage');
+    const restartButton = document.getElementById('restart-btn');
+    const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
+    let circleTurn;
 
-    startGame()
-    restartButton.addEventListener('click', startGame)
+    startGame();
+    restartButton.addEventListener('click', startGame);
 
     function startGame() {
-      circleTurn = false
+      circleTurn = false;
       cellElements.forEach(cell => {
-        cell.classList.remove(X_CLASS)
-        cell.classList.remove(CIRCLE_CLASS)
-        cell.removeEventListener('click', handleClick)
-        cell.addEventListener('click', handleClick, { once: true })
+        cell.classList.remove(X);
+        cell.classList.remove(CIRCLE);
+        cell.removeEventListener('click', handleClick);
+        cell.addEventListener('click', handleClick, { once: true });
       })
-      setBoardHoverClass()
-      winningMessageElement.classList.remove('show')
+      setBoardHover();
+      winningMessageElement.classList.remove('show');
     }
 
     function handleClick(e) {
-      console.log("clicked")
-      const cell = e.target
-      const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
-      placeMark(cell, currentClass)
+      // console.log("clicked");
+      const cell = e.target;
+      const currentClass = circleTurn ? CIRCLE : X;
+      placeMark(cell, currentClass);
       if (checkWin(currentClass)) {
         endGame(false)
       } else if (isDraw()) {
         endGame(true)
       } else {
-        swapTurns()
-        setBoardHoverClass()
+        swapTurns();
+        setBoardHover();
       }
+    }
+
+    function placeMark(cell, currentClass) {
+      cell.classList.add(currentClass);
+    }
+
+    function swapTurns() {
+      circleTurn = !circleTurn;
+    }
+
+    function setBoardHover() {
+      board.classList.remove(X);
+      board.classList.remove(CIRCLE);
+      if (circleTurn) {
+        board.classList.add(CIRCLE);
+      } else {
+        board.classList.add(X);
+      }
+    }
+
+    function checkWin(currentClass) {
+      return WINNING_COMBINATIONS.some(combination => {
+        return combination.every(index => {
+          return cellElements[index].classList.contains(currentClass);
+        })
+      })
+    }
+    function isDraw() {
+      return [...cellElements].every(cell => {
+        return cell.classList.contains(X) || cell.classList.contains(CIRCLE);
+      })
     }
     function endGame(draw) {
       if (draw) {
@@ -64,44 +95,11 @@ function App() {
       }
       winningMessageElement.classList.add('show')
     }
-
-    function isDraw() {
-      return [...cellElements].every(cell => {
-        return cell.classList.contains(X_CLASS) || cell.classList.contains(CIRCLE_CLASS)
-      })
-    }
-
-    function placeMark(cell, currentClass) {
-      cell.classList.add(currentClass)
-    }
-
-    function swapTurns() {
-      circleTurn = !circleTurn
-    }
-
-    function setBoardHoverClass() {
-      board.classList.remove(X_CLASS)
-      board.classList.remove(CIRCLE_CLASS)
-      if (circleTurn) {
-        board.classList.add(CIRCLE_CLASS)
-      } else {
-        board.classList.add(X_CLASS)
-      }
-    }
-
-    function checkWin(currentClass) {
-      return WINNING_COMBINATIONS.some(combination => {
-        return combination.every(index => {
-          return cellElements[index].classList.contains(currentClass)
-        })
-      })
-    }
-
   },[]);
-
 
   return (
     <div className="App">
+      <h1>Tic Tac Toe Game</h1>
       <div className="board" id="board">
         <div className="cell" data-cell></div>
         <div className="cell" data-cell></div>
@@ -115,14 +113,14 @@ function App() {
       </div>
 
       <div className="results" id="results">
-        <div className="O-result"> O's result is: {resultO}</div>
-        <div className="x-result">X's result is: {resultX}</div>
-        <button id="reset" onClick={ ()=>{setResultO(x => x = 0);setResultX(x => x = 0)}}>Reset</button>
+        <div className="o-result"> O's result is: <span>{resultO}</span></div>
+        <button id="reset" onClick={() => { setResultO(x => x = 0); setResultX(x => x = 0) }}>Reset</button>
+        <div className="x-result">X's result is: <span>{resultX}</span></div>
       </div>
 
       <div className="winning-message" id="winningMessage">
         <div data-winning-message-text></div>
-        <button id="restartButton" >Restart</button>
+        <button id="restart-btn" >Restart</button>
       </div>
     </div>
   );
